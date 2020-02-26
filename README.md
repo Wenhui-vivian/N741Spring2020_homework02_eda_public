@@ -8,4 +8,4 @@ OPEN the "N741Spring2020_Homework02.Rmd" RMD file and answer the questions by co
 
 # ANSWER KEY
 
-See the "N741Spring2020_Homework02_answerkey.Rmd" Rmarkdown file with the code for the answer key. The final [Homework 2 document can be viewed here](https://htmlpreview.github.io/?https://raw.githubusercontent.com/Emory-NRSG-741-Spring-2020/N741Spring2020_homework02_eda/master/N741Spring2020_Homework02_answerkey.html?token=AB4VTMCIPDWBQMO2VOJDALS6L4Q7G).
+See the "N741Spring2020_Homework02_answerkey.Rmd" Rmarkdown file with the code for the answer key. The final [Homework 2 document can be viewed here](https://htmlpreview.github.io/?https://raw.githubusercontent.com/melindahiggins2000/N741Spring2020_homework02_eda_public/master/N741Spring2020_Homework02_answerkey.html).
