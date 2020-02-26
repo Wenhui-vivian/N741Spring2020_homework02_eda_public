@@ -1,0 +1,219 @@
+---
+title: "NRSG 741 - Homework 2 - Exploratory Data Analysis"
+author: "YOUR NAME HERE"
+date: "ADD THE DATE"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## INSTRUCTIONS
+
+* Use this Rmarkdown file `N741Spring2020_Homework02.Rmd` to get started.
+* Change the author to YOUR NAME
+* Change the date
+* Note: This Rmarkdown file has one R code chunk at the top that reads in the dataset and loads the R packages you will need.
+* After each question below, insert an R code chunk to enter the R code needed to answer that question. Do this for each question.
+* Outside of the R code chunk, type in any text needed to provide explanation or answer the questions further.
+
+Note: BEFORE you Knit your document, be sure to comment out any code that is not fully running yet by adding a `#` at the beginning of that line of code.
+
+**Note: All you need to do is correctly fill in the blanks `___` in the code chunks below.**
+
+```{r setup, include=FALSE}
+# set up chunk output options
+# set to FALSE to clean up final output
+# leave TRUE to help with debugging initially
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = TRUE)
+knitr::opts_chunk$set(message = TRUE)
+knitr::opts_chunk$set(error = TRUE)
+
+# Get data
+# learn more at https://archive.ics.uci.edu/ml/datasets/abalone
+
+# Load the abalone dataset using read_csv() function
+# from readr package
+library(readr)
+abalone <- readr::read_csv(file = "https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data",
+                           col_names = FALSE)
+
+# put in the variables names
+# see details at https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.names
+names(abalone) <- c("sex","length",
+                    "diameter","height",
+                    "wholeWeight","shuckedWeight",
+                    "visceraWeight","shellWeight","rings")
+
+# Load dplyr and ggplot2 packages
+library(dplyr)
+library(ggplot2)
+```
+
+## Goal of Homework 2
+
+This homework is meant to further your `dplyr` and `ggplot2` skills. 
+
+## Modify R code chunks
+
+In each of the R code chunks below, scaffolding is provided. Everywhere you see 3 underscores ___ , you will need to fill in the appropriate code, variable name, function name, etc.
+
+## Abalones Dataset from UCI Repository
+
+For this homework, you will keep working with the `abalone` dataset from the UCI data repository at [https://archive.ics.uci.edu/ml/datasets/abalone](https://archive.ics.uci.edu/ml/datasets/abalone).
+
+Use tools within the `dplyr` package as much as possible to answer the following questions.
+
+##### **Question 1:** What kind of R object is the `abalone` dataset?
+
+```{r q1}
+# insert R code here to answer question 1
+# HINT: The name of the dataset is abalone
+
+class(___)
+```
+
+TYPE ANSWER TO QUESTION 1 HERE
+
+##### **Question 2:** How many observations are in the `abalone` dataset?
+
+```{r q2}
+# HINT: there are multiple ways to answer this - pick one
+dim(___)
+str(___)
+glimpse(___)
+nrow(___)
+```
+
+TYPE ANSWER TO QUESTION 2 HERE
+
+##### **Question 3:** For diameter, how many abalones have diameters less than 0.5mm?
+
+```{r q3}
+# the variable name is diameter
+abalone %>%
+ filter(___ < ___) %>%
+ nrow()
+```
+
+TYPE ANSWER TO QUESTION 3 HERE
+
+##### **Question 4:** How many abalones have shucked weights larger than their whole weight? 
+
+NOTE: There should be NO measurements where the shucked weight is > whole weight. If there are some these are probably data entry errors in this dataset.
+
+```{r q4}
+# HINT: Use a logical expression inside a filter step
+# HINT: Check the spelling and case for the 
+# variable names for shucked weight and whole weight
+abalone %>%
+ filter(___ > ___) %>%
+ nrow()
+```
+
+TYPE ANSWER TO QUESTION 4 HERE
+
+---
+
+Create a subset containing only infants `sex == "I"`. Call this new dataset `infants`
+
+```{r infants}
+# HINT: Put the logical statement inside the filter() function
+# Dont forget to use the assign operator <- to create the infants object
+infants <- abalone %>%
+  filter(___ == ___)
+```
+
+##### **Question 5:** How many infants are in this subset?
+
+```{r q5}
+# Hint: see code in question 2 above
+# pick the function you prefer to answer this question
+___(___)
+```
+
+TYPE ANSWER TO QUESTION 5 HERE
+
+---
+
+Show off your `dplyr` skills with `group_by()` - we didn't get a chance to fully explore `group_by()` in class but it is added in the examples below to help you answer these questions.
+
+##### **Question 6:** What is the average whole weight for each abalone sex (get whole weight means for females "F", males "M" and infants "I" separately)?
+
+```{r q6}
+# Hint: put the variables used in the select statement
+# and in the summarise() statement. Remember to put
+# in a name for the output of the mean() function
+# something like meanwt
+abalone %>%
+  select(sex, ___) %>%
+  group_by(sex) %>%
+  summarise(___ = mean(___, na.rm=TRUE))
+```
+
+TYPE ANSWER TO QUESTION 6 HERE
+
+##### **Question 7:** Get the means for the abalone length and height by sex?
+
+```{r q7}
+# Hint: put variable names in the select statement
+# put the function name for the mean in the 
+# summarise_all() function
+abalone %>%
+  select(sex, ___, ___) %>%
+  group_by(sex) %>%
+  summarise_all(___, na.rm=TRUE)
+```
+
+TYPE ANSWER TO QUESTION 7 HERE
+
+----
+
+## Test your graphing skills using `ggplot2`
+
+Using the `abalone` dataset, create the following graphics/figures using `ggplot()` and associated `geom_xxx()` functions.
+
+##### **Question 8:** Create a histogram of abalone whole weight
+
+BONUS: Outline the histogram bars with a black line and fill the histogram bars with a green color
+
+```{r q8}
+# Hint: the first option in the ggplot() function 
+# is the name of the dataset
+# the variable name is put inside aes()
+ggplot(___, aes(___)) +
+  geom_histogram()
+
+# BONUS:
+ggplot(___, aes(___)) +
+  geom_histogram(color = ___, fill = ___)
+```
+
+_What do you notice about the distribution (any outliers or skewness)?_
+
+TYPE ANSWER TO QUESTION 8 HERE
+
+##### **Question 9:** Create side-by-side boxplots of the number of rings by gender - color the bars by sex
+
+_HINT use `geom_boxplot` with x = sex and y = rings_ 
+
+```{r q9}
+ggplot(___, aes(x=___, y=___, fill=___)) + 
+  geom_boxplot()
+```
+
+
+##### **Question 10:** Create a scatterplot of the whole weight on the X axis and shucked weight on the Y axis and color the points by sex
+
+```{r q10}
+ggplot(___, aes(x=___, y=___, color=___)) + 
+  geom_point() + 
+  geom_abline(intercept = 0, slope = 1)
+```
+
+Can you see which abalones have shucked weights > whole weights which should not happen? Look at the y=x reference line. What sex are the abalones with the incorrect weights?
+
+## Final Instructions
+
+* KNIT this RMD file to PDF (or to HTML or DOC and save as PDF)
+* Upload your PDF document to Canvas
